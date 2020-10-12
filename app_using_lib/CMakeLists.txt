@@ -14,7 +14,19 @@ endif()
 
 add_executable(${PROJECT_NAME} "main.cpp")
 
+############################
+# Add path to MySharedLibConfig.cmake file to CMAKE_PREFIX_PATH
+#
+# NOTE: this could be done also by setting MySharedLib_DIR:
+# set(MySharedLib_DIR ${CMAKE_SOURCE_DIR}/lib/share/MySharedLib/cmake)
+#
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_SOURCE_DIR}/lib/share/MySharedLib/cmake)
+
 find_package(MySharedLib REQUIRED)
 target_link_libraries(${PROJECT_NAME} PUBLIC mySharedLib)
 
-message("::: ${INTERFACE_INCLUDE_DIRECTORIES}")
+############################
+# This is not required when using this method
+# MySharedLibConfig.cmake will append all these paths
+#
+#target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/lib/include/mySharedLib)
